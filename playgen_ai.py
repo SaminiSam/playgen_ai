@@ -8,7 +8,6 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 
 def main():
-
     st.title("AI-powered Game Idea Generator")
 
     # Input for number of players
@@ -21,18 +20,21 @@ def main():
     if st.button("Generate Game Ideas"):
         # Check if num_players has a value before calling game_ai
         if num_players:
-            # Pass both client and num_players to game_ai function
-            print("Before calling gm.game_ai()")
-            print("num_players:", num_players)
-            game_1, game_2 = gm.game_ai(client, num_players)
+            try:
+                # Pass both client and num_players to game_ai function
+                print("Before calling gm.game_ai()")
+                print("num_players:", num_players)
+                game_1, game_2 = gm().game_ai(client, num_players)
 
-            # Display generated game ideas with formatting
-            st.header(f"Game Ideas for {num_players} Players")
-            st.write("**Game 1:**", style="h3")
-            st.write(game_1)
-            st.write("---")  # Separator line
-            st.write("**Game 2:**", style="h3")
-            st.write(game_2)
+                # Display generated game ideas with formatting
+                st.header(f"Game Ideas for {num_players} Players")
+                st.write("**Game 1:**", style="h3")
+                st.write(game_1)
+                st.write("---")  # Separator line
+                st.write("**Game 2:**", style="h3")
+                st.write(game_2)
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
         else:
             st.error("Please enter the number of players before generating ideas.")
 
