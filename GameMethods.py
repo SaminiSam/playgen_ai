@@ -3,6 +3,12 @@ class GameMethods:
         pass
 
     def game_ai(self, client, num_players):
+        if not client:
+            raise ValueError("OpenAI client is not provided.")
+
+        if not num_players:
+            raise ValueError("Number of players is not provided.")
+
         # Define the prompt for generating game ideas
         prompt = f"""
         You are a creative game designer. Please generate two game ideas for {num_players} players. 
