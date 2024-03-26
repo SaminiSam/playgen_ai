@@ -1,6 +1,8 @@
 class GameMethods:
+    def __init__(self):
+        pass  # No need for initialization here
 
-    def game_ai(num_players):
+    def game_ai(self, client, num_players):
         # Define the prompt for generating game ideas
         prompt = f"""
         You are a creative game designer. Please generate two game ideas for {num_players} players. 
@@ -40,13 +42,3 @@ class GameMethods:
         game_2 = "Game 2" + split_token.join(games[1:]).strip()
 
         return game_1, game_2
-
-    # Example usage
-    num_players = 3  # Example: 3 players
-    game_1, game_2 = game_ai(num_players)
-
-    # Print the generated game ideas
-    print("Game 1 (With Items Required):")
-    print(game_1)
-    print("\nGame 2 (No Items Required):")
-    print(game_2)
