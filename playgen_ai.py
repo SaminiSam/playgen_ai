@@ -22,6 +22,8 @@ def main():
         # Check if num_players has a value before calling game_ai
         if num_players:
             # Pass both client and num_players to game_ai function
+            print("Before calling gm.game_ai()")
+            print("num_players:", num_players)
             game_1, game_2 = gm.game_ai(client, num_players)
 
             # Display generated game ideas with formatting
