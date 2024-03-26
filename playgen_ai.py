@@ -18,14 +18,25 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: #0f131a;
-        color: white;
+        background-color: #11141C;
     }
     .container {
         padding: 2rem;
-        background-color: #4CAF50;
+        background-color: #5FC1E3;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .stButton>button {
+        background-color: #FF6B6B;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .stButton>button:hover {
+        background-color: #E63946;
     }
     </style>
     """,
