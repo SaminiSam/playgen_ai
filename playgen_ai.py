@@ -22,30 +22,24 @@ body {
     margin: 0;
     font-family: sans-serif;
     background-color: #f4f4f4;  /* Light gray background */
-    text-align: center;
 }
 
-/* Title and subtitle */
+/* Title */
 h1 {
     color: #333;
     font-size: 48px;
     font-weight: bold;
     margin-top: 60px;
+    text-align: center;
 }
 
-h2 {
-    color: #999;
-    font-size: 24px;
-    margin-bottom: 40px;
-}
-
-/* Number of players input */
+/* Input for number of players */
 .number-input {
     background-color: #fff;
     border: 2px solid #333;
     border-radius: 5px;
     padding: 10px 15px;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     width: 200px;
     font-size: 18px;
     text-align: center;
@@ -60,14 +54,22 @@ h2 {
     padding: 10px 20px;
     font-size: 18px;
     cursor: pointer;
-    margin-bottom: 30px;
 }
 
 .generate-button:hover {
     background-color: #444;
 }
 
-/* Game ideas */
+/* Game ideas header */
+.game-ideas-header {
+    color: #333;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Game idea container */
 .game-idea {
     background-color: #fff;
     border: 2px solid #ddd;
@@ -93,24 +95,24 @@ h2 {
     )
 
     # App content
-    st.title(" Unleash Your Creativity")  # Catchy title
-    st.subheader("Power up your game nights with AI-generated ideas ")
+    st.title("PlayGen AI")
 
-    num_players = st.number_input("Players ", min_value=1, container_class="number-input")  # Custom class for input
+    num_players = st.number_input("Number of Players (Min: 1)", min_value=1, container_class="number-input")
 
     if st.button("Generate Game Ideas!", class_name="generate-button"):
         try:
             game_1, game_2 = gm().game_ai(client, num_players)
 
-            st.header(f" Games for {num_players} Players")
+            st.header(f" Game Ideas for {num_players} Players")
 
             for game_index, game_idea in enumerate([game_1, game_2]):
-                st.container()  # Clear spacing between game ideas
                 st.write(
                     "",
                     unsafe_allow_html=True,
                 )  # Add an empty line for visual separation
-                st.markdown(f"<div class='game-idea'><h3>Game {game_index + 1}</h3>{game_idea}</div>", unsafe_allow_html=True)
+                with st.container():
+                    st.subheader(f"**Game {game_index + 1}**")
+                    st.markdown(game_idea)
 
         except Exception as e:
             st.error(f"An error occurred: {e}")
