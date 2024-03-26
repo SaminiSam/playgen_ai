@@ -19,6 +19,7 @@ st.markdown(
     .stApp {
         max-width: 800px;
         padding: 2rem;
+        font-family: Arial, sans-serif;
     }
     .stButton>button {
         background-color: #4CAF50;
@@ -31,6 +32,19 @@ st.markdown(
     }
     .stButton>button:hover {
         background-color: #45a049;
+    }
+    .stTextInput>div>div>div>input {
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        transition: border-color 0.3s ease;
+    }
+    .stTextInput>div>div>div>input:focus {
+        border-color: #4CAF50;
+    }
+    .stMarkdown p {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
     }
     </style>
     """,
