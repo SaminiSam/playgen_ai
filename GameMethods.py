@@ -1,6 +1,6 @@
 class GameMethods:
     def __init__(self):
-        pass  # No need for initialization here
+        pass
 
     def game_ai(self, client, num_players):
         # Define the prompt for generating game ideas
@@ -40,5 +40,9 @@ class GameMethods:
         games = generated_content.split(split_token)
         game_1 = games[0].strip()
         game_2 = "Game 2" + split_token.join(games[1:]).strip()
+
+        # Further process the content to extract game details (optional)
+        # You can implement logic here to parse the generated content and extract specific
+        # information for each game, such as items required, rules, etc.
 
         return game_1, game_2
