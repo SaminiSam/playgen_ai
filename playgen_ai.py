@@ -8,7 +8,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 
 def main():
-    st.title("AI-powered Game Idea Generator")
+    st.title("PlayGen AI")
 
     # Input for number of players
     num_players = st.number_input("Number of Players (Min: 1)", min_value=1)
