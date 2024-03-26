@@ -44,5 +44,10 @@ class GameMethods:
         # Further process the content to extract game details (optional)
         # You can implement logic here to parse the generated content and extract specific
         # information for each game, such as items required, rules, etc.
+        # For example:
+        # item_list_game1 = []  # List to store items required for game 1
+        # rules_game1 = ""     # String to store rules for game 1
+        # # Implement logic to parse the content of game_1 and extract items and rules
+        # # ...
 
         return game_1, game_2

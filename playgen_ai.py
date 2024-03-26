@@ -6,6 +6,7 @@ from GameMethods import GameMethods as gm
 # Create an OpenAI client instance using the API key from secrets
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
+
 def main():
 
     st.title("AI-powered Game Idea Generator")
@@ -15,8 +16,8 @@ def main():
 
     # Generate button
     if st.button("Generate Game Ideas"):
-        # Call the game_ai function from the imported GameMethods class
-        game_1, game_2 = gm.game_ai(client, num_players)  # Pass the client and num_players
+        # Call the game_ai function from the imported GameMethods class, passing both client and num_players
+        game_1, game_2 = gm.game_ai(client, num_players)
 
         # Display generated game ideas with formatting
         st.header(f"Game Ideas for {num_players} Players")
