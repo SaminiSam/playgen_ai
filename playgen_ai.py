@@ -21,6 +21,7 @@ def main():
     if st.button("Generate Game Ideas"):
         # Check if num_players has a value before calling game_ai
         if num_players:
+            # Pass both client and num_players to game_ai function
             game_1, game_2 = gm.game_ai(client, num_players)
 
             # Display generated game ideas with formatting
