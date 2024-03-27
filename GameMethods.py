@@ -1,59 +1,110 @@
-class GameMethods:
-    def __init__(self):
-        pass
+import os
+from openai import OpenAI
+import streamlit as st
+from GameMethods import GameMethods as gm
 
-    def game_ai(self, client, num_players):
-        if not client:
-            raise ValueError("OpenAI client is not provided.")
+# Set page title and favicon
+st.set_page_config(
+    page_title="PlayGen AI",
+    page_icon="🎮",
+)
 
-        if not num_players:
-            raise ValueError("Number of players is not provided.")
+# Create an OpenAI client instance using the API key from secrets
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-        # Define the prompt for generating game ideas
-        prompt = f"""
-        You are a creative game designer. Please generate two game ideas for {num_players} players. 
+# CSS styles
+custom_css = """
+<style>
+/* Base styles */
+body {
+    background-color: #eaf2f8; /* Light blue background */
+    background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://your-background-image-url.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
 
-        Game 1 should require specific items to play, and include a list of these items, along with the game rules and how to play.
+/* Title styles */
+h1 {
+    color: #2980b9; /* Blue title */
+    text-align: center; /* Center align title */
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Animatic font */
+}
 
-        Game 2 should not require any items to play. Please include the game rules and how to play.
+/* Input styles */
+.stTextInput>div>div>input {
+    border-radius: 20px; /* Rounded corners for input fields */
+    border: 1px solid #3498db; /* Blue border for input fields */
+    padding: 10px; /* Add some padding for input fields */
+    width: 100%; /* Make input fields 100% width */
+}
 
-        Both games should be suitable for a casual setting and encourage teamwork or friendly competition.
-        """
+/* Button styles */
+.stButton>button {
+    border-radius: 20px; /* Rounded corners for buttons */
+    border: 2px solid #3498db; /* Blue border for buttons */
+    color: #fff; /* White text color */
+    background-color: #3498db; /* Blue background color */
+    padding: 10px; /* Add padding to buttons */
+    cursor: pointer; /* Show pointer on hover */
+    width: 100%; /* Make buttons 100% width */
+    box-sizing: border-box; /* Include padding in width */
+}
 
-        # Generate the game ideas
-        game_response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {
-                    "role": "system",
-                    "content": prompt
-                },
-                {
-                    "role": "user",
-                    "content": ""
-                }
-            ],
-            max_tokens=800,  # You may adjust this value based on the length of response you need
-            temperature=0.7  # Adjust for creativity; lower might be better for more structured output
-        )
+.stButton>button:hover {
+    background-color: #2980b9; /* Darker blue background on hover */
+}
 
-        # Extract the generated content
-        generated_content = game_response.choices[0].message.content.strip()
+/* Header styles */
+.stMarkdown h2 {
+    color: #2980b9; /* Blue header text */
+}
 
-        # Process the generated content to split into two games
-        # This is a basic split; consider improving it to better match your output format
-        split_token = "\n\nGame 2"
-        games = generated_content.split(split_token)
-        game_1 = games[0].strip()
-        game_2 = "Game 2" + split_token.join(games[1:]).strip()
+/* Expander styles */
+.stExpander>div>div:first-child {
+    background-color: #3498db; /* Blue background for expander header */
+    color: #fff; /* White text color for expander header */
+    border-radius: 20px; /* Rounded corners for expander header */
+    padding: 10px; /* Add padding to expander header */
+    cursor: pointer; /* Show pointer on hover */
+}
 
-        # Further process the content to extract game details (optional)
-        # You can implement logic here to parse the generated content and extract specific
-        # information for each game, such as items required, rules, etc.
-        # For example:
-        # item_list_game1 = []  # List to store items required for game 1
-        # rules_game1 = ""     # String to store rules for game 1
-        # # Implement logic to parse the content of game_1 and extract items and rules
-        # # ...
+.stExpander>div>div:first-child:hover {
+    background-color: #2980b9; /* Darker blue background on hover */
+}
+</style>
+"""
 
-        return game_1, game_2
+# Function to inject custom CSS
+def inject_custom_css():
+    st.markdown(custom_css, unsafe_allow_html=True)
+
+def main():
+    inject_custom_css()
+    
+    st.title("PlayGen AI")
+
+    # Using columns to layout the input and button
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        num_players = st.number_input("Number of Players (Min: 1)", min_value=1, value=1)
+    with col2:
+        generate_button = st.button("Generate Game Ideas", key="generate_button")
+
+    if generate_button:
+        if num_players:
+            try:
+                game_1, game_2 = gm().game_ai(client, num_players)
+
+                st.header(f"🎮 Game Ideas for {num_players} Players", anchor=None)
+                with st.expander("Game 1"):
+                    st.markdown(game_1)
+                with st.expander("Game 2"):
+                    st.markdown(game_2)
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
+        else:
+            st.warning("Please enter the number of players before generating ideas.")
+
+if __name__ == "__main__":
+    main()
