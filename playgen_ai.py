@@ -17,20 +17,23 @@ custom_css = """
 <style>
 /* Base styles */
 body {
-    background-color: #eaf2f8; /* Light blue background */
+    background-color: rgba(234, 242, 248, 0.7); /* Light blue background with transparency */
 }
 
 /* Title styles */
 h1 {
     color: #2980b9; /* Blue title */
     text-align: center; /* Center align title */
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Animatic font */
+    font-size: 36px; /* Larger font size */
 }
 
 /* Input styles */
 .stTextInput>div>div>input {
     border-radius: 20px; /* Rounded corners for input fields */
     border: 1px solid #3498db; /* Blue border for input fields */
-    padding: 10px; /* Add some padding for input fields */
+    padding: 12px; /* Add padding for input fields */
+    width: 100%; /* Make input fields 100% width */
 }
 
 /* Button styles */
@@ -39,8 +42,10 @@ h1 {
     border: 2px solid #3498db; /* Blue border for buttons */
     color: #fff; /* White text color */
     background-color: #3498db; /* Blue background color */
-    padding: 10px 20px; /* Add padding to buttons */
+    padding: 12px 20px; /* Add padding to buttons */
     cursor: pointer; /* Show pointer on hover */
+    width: 100%; /* Make buttons 100% width */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 .stButton>button:hover {
@@ -50,6 +55,7 @@ h1 {
 /* Header styles */
 .stMarkdown h2 {
     color: #2980b9; /* Blue header text */
+    font-size: 24px; /* Larger font size */
 }
 
 /* Expander styles */
@@ -57,7 +63,7 @@ h1 {
     background-color: #3498db; /* Blue background for expander header */
     color: #fff; /* White text color for expander header */
     border-radius: 20px; /* Rounded corners for expander header */
-    padding: 10px 20px; /* Add padding to expander header */
+    padding: 12px 20px; /* Add padding to expander header */
     cursor: pointer; /* Show pointer on hover */
 }
 
@@ -81,7 +87,7 @@ def main():
     with col1:
         num_players = st.number_input("Number of Players (Min: 1)", min_value=1, value=1)
     with col2:
-        generate_button = st.button("Generate Game Ideas")
+        generate_button = st.button("Generate Game Ideas", key="generate_button")
 
     if generate_button:
         if num_players:
