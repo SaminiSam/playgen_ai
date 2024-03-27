@@ -12,26 +12,87 @@ st.set_page_config(
 # Create an OpenAI client instance using the API key from secrets
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
+# CSS styles
+custom_css = """
+<style>
+/* Base styles */
+body {
+    background-color: #eaf2f8; /* Light blue background */
+}
+
+/* Title styles */
+h1 {
+    color: #2980b9; /* Blue title */
+    text-align: center; /* Center align title */
+}
+
+/* Input styles */
+.stTextInput>div>div>input {
+    border-radius: 20px; /* Rounded corners for input fields */
+    border: 1px solid #3498db; /* Blue border for input fields */
+    padding: 10px; /* Add some padding for input fields */
+}
+
+/* Button styles */
+.stButton>button {
+    border-radius: 20px; /* Rounded corners for buttons */
+    border: 2px solid #3498db; /* Blue border for buttons */
+    color: #fff; /* White text color */
+    background-color: #3498db; /* Blue background color */
+    padding: 10px 20px; /* Add padding to buttons */
+    cursor: pointer; /* Show pointer on hover */
+}
+
+.stButton>button:hover {
+    background-color: #2980b9; /* Darker blue background on hover */
+}
+
+/* Header styles */
+.stMarkdown h2 {
+    color: #2980b9; /* Blue header text */
+}
+
+/* Expander styles */
+.stExpander>div>div:first-child {
+    background-color: #3498db; /* Blue background for expander header */
+    color: #fff; /* White text color for expander header */
+    border-radius: 20px; /* Rounded corners for expander header */
+    padding: 10px 20px; /* Add padding to expander header */
+    cursor: pointer; /* Show pointer on hover */
+}
+
+.stExpander>div>div:first-child:hover {
+    background-color: #2980b9; /* Darker blue background on hover */
+}
+</style>
+"""
+
+# Function to inject custom CSS
+def inject_custom_css():
+    st.markdown(custom_css, unsafe_allow_html=True)
+
 def main():
+    inject_custom_css()
+    
     st.title("PlayGen AI")
 
-    # Input for number of players
-    num_players = st.number_input("Number of Players (Min: 1)", min_value=1)
+    # Using columns to layout the input and button
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        num_players = st.number_input("Number of Players (Min: 1)", min_value=1, value=1)
+    with col2:
+        generate_button = st.button("Generate Game Ideas")
 
-    # Generate button
-    if st.button("Generate Game Ideas"):
-        # Check if num_players has a value before calling game_ai
+    if generate_button:
         if num_players:
             try:
-                # Pass both client and num_players to game_ai function
                 game_1, game_2 = gm().game_ai(client, num_players)
 
-                # Display generated game ideas with formatting
-                st.header(f"🎮 Game Ideas for {num_players} Players")
-                st.subheader("**Game 1:**")
-                st.markdown(game_1)
-                st.subheader("**Game 2:**")
-                st.markdown(game_2)
+                st.header(f"🎮 Game Ideas for {num_players} Players", anchor=None)
+                with st.expander("Game 1"):
+                    st.markdown(game_1)
+                with st.expander("Game 2"):
+                    st.markdown(game_2)
             except Exception as e:
                 st.error(f"An error occurred: {e}")
         else:
