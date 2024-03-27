@@ -24,8 +24,6 @@ body {
 h1 {
     color: #2980b9; /* Blue title */
     text-align: center; /* Center align title */
-    font-family: 'Comic Sans MS', cursive, sans-serif; /* Animatic font */
-    font-size: 36px; /* Larger font size */
 }
 
 /* Input styles */
@@ -42,7 +40,7 @@ h1 {
     border: 2px solid #3498db; /* Blue border for buttons */
     color: #fff; /* White text color */
     background-color: #3498db; /* Blue background color */
-    padding: 12px 20px; /* Add padding to buttons */
+    padding: 10px 20px; /* Add padding to buttons */
     cursor: pointer; /* Show pointer on hover */
     width: 100%; /* Make buttons 100% width */
     box-sizing: border-box; /* Include padding in width */
@@ -55,7 +53,6 @@ h1 {
 /* Header styles */
 .stMarkdown h2 {
     color: #2980b9; /* Blue header text */
-    font-size: 24px; /* Larger font size */
 }
 
 /* Expander styles */
