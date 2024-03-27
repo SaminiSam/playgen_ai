@@ -43,7 +43,6 @@ h1 {
     background-color: #3498db; /* Blue background color */
     padding: 12px 20px; /* Add padding to buttons */
     cursor: pointer; /* Show pointer on hover */
-    width: 100%; /* Make buttons 100% width */
     box-sizing: border-box; /* Include padding in width */
 }
 
