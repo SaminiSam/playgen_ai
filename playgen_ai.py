@@ -86,7 +86,7 @@ def main():
     with col1:
         num_players = st.number_input("Number of Players (Min: 1)", min_value=1, value=1)
     with col2:
-        generate_button = st.button("Generate Game Ideas", key="generate_button")
+        generate_button = st.button("Generate Game Ideas", key="generate_button", width=None)
 
     if generate_button:
         if num_players:
