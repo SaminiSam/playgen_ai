@@ -93,9 +93,9 @@ def main():
                 game_1, game_2 = gm().game_ai(client, num_players)
 
                 st.header(f"🎮 Game Ideas for {num_players} Players", anchor=None)
-                with st.expander("Game 1"):
+                with st.expander("Game 1 (Items required)"):
                     st.markdown(game_1)
-                with st.expander("Game 2"):
+                with st.expander("Game 2 (No items required)"):
                     st.markdown(game_2)
             except Exception as e:
                 st.error(f"An error occurred: {e}")
